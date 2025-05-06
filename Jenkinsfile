@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent any  // หรือสามารถกำหนดเป็น agent ที่ต้องการให้รัน pipeline นี้
 
     environment {
         FIREBASE_CREDENTIALS = credentials('firebase-service-account') // Firebase Service Account Key
@@ -43,8 +43,7 @@ pipeline {
 
     post {
         always {
-            // Move the cleanWs() inside node block
-            node {
+            node('master') {  // ระบุ label 'master' หรือ 'any' ถ้าใช้ Jenkins master node
                 cleanWs()
             }
         }
